@@ -26,8 +26,7 @@ class TestCase
   end
 
   def full_method
-    bla = [indent([method_definition],2), workload.split("\n"), indent([method_end],2)].flatten.join("\n") + "\n"
-    # .join("\n")
+    [indent([method_definition],2), workload.split("\n"), indent([method_end],2)].flatten.join("\n") + "\n"
   end
 
   def indent(array, count=4 )
