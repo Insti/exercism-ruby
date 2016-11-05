@@ -33,6 +33,10 @@ class TestCase
     [indent([method_definition],2), method_body.split("\n"), indent([method_end],2)].flatten.join("\n") + "\n"
   end
 
+  def to_s
+    full_method
+  end
+
   def indent(array, count=4 )
     array.map { |line| format "%s%s", ' ' * count, line }
   end
