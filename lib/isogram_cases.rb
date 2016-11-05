@@ -1,17 +1,16 @@
-require_relative 'testcase'
+require_relative 'exercise_testcases'
+require_relative 'exercise_testcase'
 
-class IsogramCases < TestCases
+class IsogramCases < ExerciseTestCases
 end
 
-class IsogramCase < TestCase
+class IsogramCase < ExerciseTestCase
   def workload
     [
       "string = '#{canonical_data.input}'",
       "#{assertion} Isogram.isogram?(string), '#{failure_message}'"
     ]
   end
-
-  private
 
   def failure_message
     "#{canonical_data.input.inspect} #{is_or_isnt} an isogram"
@@ -25,4 +24,3 @@ class IsogramCase < TestCase
     canonical_data.expected ? 'assert' : 'refute'
   end
 end
-

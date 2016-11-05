@@ -4,7 +4,8 @@ require 'erb'
 require 'json'
 require 'ostruct'
 
-require_relative 'testcase'
+require_relative 'exercise_testcases'
+require_relative 'exercise_testcase'
 
 class Generator
   METADATA_REPOSITORY = 'x-common'.freeze
@@ -39,7 +40,7 @@ class Generator
     cases.new(data).to_a
   end
 
-  class BookKeeping < TestCase
+  class BookKeeping < ExerciseTestCase
     def comment
       IO.read(XRUBY_LIB + '/bookkeeping.md')
     end
