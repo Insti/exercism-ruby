@@ -38,6 +38,10 @@ class Generator
     cases.call(data)
   end
 
+  def test_version
+    IO.read(XRUBY_LIB + '/bookkeeping.md')
+  end
+
   def metadata_repository_missing_message
     <<-EOM.gsub(/^ {6}/, '')
 
@@ -51,8 +55,8 @@ class Generator
   def generate
     check_metadata_repository_exists
     generate_test_file
-    increment_version
-    increment_version_in_example
+    # increment_version
+    # increment_version_in_example
   end
 
   def check_metadata_repository_exists
