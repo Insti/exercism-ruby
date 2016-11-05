@@ -7,8 +7,18 @@ class IsogramCase < TestCase
   def workload
     [
       "string = '#{canonical_data.input}'",
-      "#{assertion} Isogram.is_isogram?(string)"
+      "#{assertion} Isogram.is_isogram?(string), '#{failure_message}'"
     ]
+  end
+
+  private
+
+  def failure_message
+    "#{canonical_data.input.inspect} #{is_or_isnt} an isogram"
+  end
+
+  def is_or_isnt
+    canonical_data.expected ? 'is' : 'is NOT'
   end
 
   def assertion
