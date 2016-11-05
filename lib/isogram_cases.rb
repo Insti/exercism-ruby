@@ -1,19 +1,20 @@
-require 'ostruct'
 require_relative 'testcase'
 
 class IsogramCase < TestCase
-
   def workload
     [
-      format( "string = '%s'", data.input ),
-      format( "%s Isogram.is_isogram?(string)", data.expected ? 'assert' : 'refute')
+      "string = '#{canonical_data.input}'",
+      "#{assertion} Isogram.is_isogram?(string)"
     ]
   end
 
+  def assertion
+    canonical_data.expected ? 'assert' : 'refute'
+  end
 end
 
 IsogramCases = proc do |data|
-  JSON.parse(data)['cases'].map.with_index do |test_case,index| 
+  JSON.parse(data)['cases'].map.with_index do |test_case,index|
     test_case['index'] = index
     IsogramCase.new(test_case)
   end

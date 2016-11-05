@@ -4,6 +4,10 @@ class TestCase
     @data = OpenStruct.new(json_data)
   end
 
+  def canonical_data
+    data
+  end
+
   def method_definition
     format 'def %s', test_name
   end
