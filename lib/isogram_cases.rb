@@ -3,22 +3,10 @@ require_relative 'testcase'
 
 class IsogramCase < TestCase
 
-  def input
-    data.input
-  end
-
-  def index
-    data.index
-  end
-
-  def expected
-    data.expected
-  end
-
-  def assertion
+  def workload
     [
       format( "string = '%s'", data.input ),
-      format( "%s Isogram.is_isogram?(string)", expected ? 'assert' : 'refute')
+      format( "%s Isogram.is_isogram?(string)", data.expected ? 'assert' : 'refute')
     ]
   end
 

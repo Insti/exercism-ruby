@@ -41,7 +41,7 @@ class Generator
   end
 
   class BookKeeping < TestCase
-    def assertion
+    def workload
       'assert_equal 2, BookKeeping::VERSION'
     end
   end
