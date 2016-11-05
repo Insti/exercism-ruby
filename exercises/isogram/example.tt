@@ -7,9 +7,7 @@ require_relative 'isogram'
 # Common test data version: <%= sha1 %>
 class IsogramTest < Minitest::Test
 <% test_cases.each do |test_case| %>
-  <%= test_case.method_definition %>
-<%= test_case.workload %>
-  end
+<%= test_case.full_method %>
 
 <% end %>
 <%= IO.read(XRUBY_LIB + '/bookkeeping.md') %>

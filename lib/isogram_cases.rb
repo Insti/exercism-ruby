@@ -10,6 +10,10 @@ class TestCase
     format 'def %s', test_name
   end
 
+  def method_end
+    'end'
+  end
+
   def test_name
     format 'test_%s', @data['description'].downcase.tr_s(' -','_')
   end
@@ -19,6 +23,11 @@ class TestCase
       format( "string = '%s'", data.input ),
       format( "%s Isogram.is_isogram?(string)", assertion)
     [indent( body ),nil].join("\n")
+  end
+
+  def full_method
+    bla = [indent([method_definition],2), workload.split("\n"), indent([method_end],2)].flatten.join("\n") + "\n"
+    # .join("\n")
   end
 
   def indent(array, count=4 )
