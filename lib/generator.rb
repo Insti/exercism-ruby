@@ -4,6 +4,8 @@ require 'erb'
 require 'json'
 require 'ostruct'
 
+require_relative 'testcase'
+
 class Generator
   METADATA_REPOSITORY = 'x-common'.freeze
 
@@ -38,8 +40,20 @@ class Generator
     cases.call(data)
   end
 
-  def test_version
-    IO.read(XRUBY_LIB + '/bookkeeping.md')
+  class BookKeeping < TestCase
+    def assertion
+      'assert_equal 2, BookKeeping::VERSION'
+    end
+  end
+
+  def test_version_bookkeeping
+    comment = IO.read(XRUBY_LIB + '/bookkeeping.md')
+    bla = BookKeeping.new( {
+      'description' => 'bookkeeping',
+      'index' => -1
+    } )
+
+    [comment, "\n", bla.full_method].join
   end
 
   def metadata_repository_missing_message

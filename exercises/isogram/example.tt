@@ -10,10 +10,5 @@ class IsogramTest < Minitest::Test
 <%=  test_case.full_method %>
 
 <% end %>
-<%= test_version %>
-
-  def test_bookkeeping
-    skip
-    assert_equal <%= version %>, BookKeeping::VERSION
-  end
+<%= test_version_bookkeeping %>
 end
