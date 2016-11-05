@@ -41,19 +41,19 @@ class Generator
   end
 
   class BookKeeping < TestCase
+
+    def comment
+      IO.read(XRUBY_LIB + '/bookkeeping.md')
+    end
+
     def workload
       'assert_equal 2, BookKeeping::VERSION'
     end
   end
 
   def test_version_bookkeeping
-    comment = IO.read(XRUBY_LIB + '/bookkeeping.md')
-    bla = BookKeeping.new( {
-      'description' => 'bookkeeping',
-      'index' => -1
-    } )
-
-    [comment, "\n", bla.full_method].join
+    BookKeeping.new( { 'description' => 'bookkeeping' } )
+#    [comment, "\n", bla.full_method].join
   end
 
   def metadata_repository_missing_message

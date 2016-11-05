@@ -6,9 +6,9 @@ require_relative 'isogram'
 
 # Common test data version: <%= sha1 %>
 class IsogramTest < Minitest::Test
-<% test_cases.each do |test_case| %>
-<%=  test_case %>
+<% test_cases.each_with_index do |test_case,index| %>
+<%=  test_case.render(index) %>
 
 <% end %>
-<%= test_version_bookkeeping %>
+<%= test_version_bookkeeping.render %>
 end

@@ -1,7 +1,12 @@
 class TestCase
   attr_reader :canonical_data
+
   def initialize(json_data)
     @canonical_data = OpenStruct.new(json_data)
+  end
+
+  def comment
+    nil
   end
 
   def method_definition
@@ -9,7 +14,7 @@ class TestCase
   end
 
   def skip
-    canonical_data.index.zero? ? '# skip' : 'skip'
+    @index == 0 ? '# skip' : 'skip'
   end
 
   def method_end
@@ -22,20 +27,19 @@ class TestCase
 
   def method_body
     body = [skip, workload].flatten
-    [indent( body ),nil].join("\n")
+    [indent(body),nil].join("\n")
   end
 
   def full_method
-    [indent([method_definition],2), method_body.split("\n"), indent([method_end],2)].flatten.join("\n") + "\n"
+    [comment,indent([method_definition],2), method_body.split("\n"), indent([method_end],2)].flatten.compact.join("\n") + "\n"
   end
 
-  def to_s
+  def render(index = -1)
+    @index = index
     full_method
   end
 
-  def indent(array, count=4 )
-    array.map { |line| format "%s%s", ' ' * count, line }
+  def indent(array, count = 4)
+    array.map { |line| line ? ' ' * count + line : nil }
   end
 end
-
-

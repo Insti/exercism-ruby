@@ -14,8 +14,7 @@ class IsogramCase < TestCase
 end
 
 IsogramCases = proc do |data|
-  JSON.parse(data)['cases'].map.with_index do |test_case,index|
-    test_case['index'] = index
+  JSON.parse(data)['cases'].map do |test_case|
     IsogramCase.new(test_case)
   end
 end
