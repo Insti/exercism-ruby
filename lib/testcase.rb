@@ -1,11 +1,7 @@
 class TestCase
-  attr_reader :data
+  attr_reader :canonical_data
   def initialize(json_data)
-    @data = OpenStruct.new(json_data)
-  end
-
-  def canonical_data
-    data
+    @canonical_data = OpenStruct.new(json_data)
   end
 
   def method_definition
@@ -13,7 +9,7 @@ class TestCase
   end
 
   def skip
-    data.index.zero? ? '# skip' : 'skip'
+    canonical_data.index.zero? ? '# skip' : 'skip'
   end
 
   def method_end
@@ -21,7 +17,7 @@ class TestCase
   end
 
   def test_name
-    format 'test_%s', @data['description'].downcase.tr_s(' -','_')
+    format 'test_%s', canonical_data.description.downcase.tr_s(' -','_')
   end
 
   def method_body
