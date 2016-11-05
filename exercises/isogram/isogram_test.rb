@@ -9,49 +9,49 @@ class IsogramTest < Minitest::Test
   def test_empty_string_has_no_duplicates
     # skip
     string = ''
-    assert Isogram.is_isogram?(string), '"" is an isogram'
+    assert Isogram.isogram?(string), '"" is an isogram'
   end
 
   def test_isogram_with_only_lower_case_characters
     skip
     string = 'duplicates'
-    assert Isogram.is_isogram?(string), '"duplicates" is an isogram'
+    assert Isogram.isogram?(string), '"duplicates" is an isogram'
   end
 
   def test_word_with_one_duplicated_character
     skip
     string = 'eleven'
-    refute Isogram.is_isogram?(string), '"eleven" is NOT an isogram'
+    refute Isogram.isogram?(string), '"eleven" is NOT an isogram'
   end
 
   def test_longest_reported_english_isogram
     skip
     string = 'subdermatoglyphic'
-    assert Isogram.is_isogram?(string), '"subdermatoglyphic" is an isogram'
+    assert Isogram.isogram?(string), '"subdermatoglyphic" is an isogram'
   end
 
   def test_word_with_duplicated_character_in_mixed_case
     skip
     string = 'Alphabet'
-    refute Isogram.is_isogram?(string), '"Alphabet" is NOT an isogram'
+    refute Isogram.isogram?(string), '"Alphabet" is NOT an isogram'
   end
 
   def test_hypothetical_isogrammic_word_with_hyphen
     skip
     string = 'thumbscrew-japingly'
-    assert Isogram.is_isogram?(string), '"thumbscrew-japingly" is an isogram'
+    assert Isogram.isogram?(string), '"thumbscrew-japingly" is an isogram'
   end
 
   def test_isogram_with_duplicated_non_letter_character
     skip
     string = 'Hjelmqvist-Gryb-Zock-Pfund-Wax'
-    assert Isogram.is_isogram?(string), '"Hjelmqvist-Gryb-Zock-Pfund-Wax" is an isogram'
+    assert Isogram.isogram?(string), '"Hjelmqvist-Gryb-Zock-Pfund-Wax" is an isogram'
   end
 
   def test_made_up_name_that_is_an_isogram
     skip
     string = 'Emily Jung Schwartzkopf'
-    assert Isogram.is_isogram?(string), '"Emily Jung Schwartzkopf" is an isogram'
+    assert Isogram.isogram?(string), '"Emily Jung Schwartzkopf" is an isogram'
   end
 
   # Problems in exercism evolve over time, as we find better ways to ask

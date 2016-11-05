@@ -7,7 +7,7 @@ class IsogramCase < TestCase
   def workload
     [
       "string = '#{canonical_data.input}'",
-      "#{assertion} Isogram.is_isogram?(string), '#{failure_message}'"
+      "#{assertion} Isogram.isogram?(string), '#{failure_message}'"
     ]
   end
 
