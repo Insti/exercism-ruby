@@ -16,7 +16,6 @@ class Generator
   end
 
   def metadata_dir
-    # rubocop:disable Metrics/LineLength
     File.expand_path(File.join('..', '..', '..', METADATA_REPOSITORY, 'exercises', name), __FILE__)
   end
 
@@ -37,11 +36,10 @@ class Generator
   end
 
   def test_cases
-    cases.call(data)
+    cases.new(data).to_a
   end
 
   class BookKeeping < TestCase
-
     def comment
       IO.read(XRUBY_LIB + '/bookkeeping.md')
     end
@@ -52,8 +50,8 @@ class Generator
   end
 
   def test_version_bookkeeping
-    BookKeeping.new( { 'description' => 'bookkeeping' } )
-#    [comment, "\n", bla.full_method].join
+    BookKeeping.new('description' => 'bookkeeping')
+    #    [comment, "\n", bla.full_method].join
   end
 
   def metadata_repository_missing_message
@@ -76,7 +74,7 @@ class Generator
   def check_metadata_repository_exists
     unless File.directory?(metadata_dir)
       STDERR.puts metadata_repository_missing_message
-      fail Errno::ENOENT.new(metadata_dir)
+      raise Errno::ENOENT, metadata_dir
     end
   end
 

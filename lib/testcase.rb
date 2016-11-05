@@ -14,7 +14,7 @@ class TestCase
   end
 
   def skip
-    @index == 0 ? '# skip' : 'skip'
+    @index.zero? ? '# skip' : 'skip'
   end
 
   def method_end
