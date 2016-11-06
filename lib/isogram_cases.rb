@@ -1,24 +1,26 @@
-class IsogramCase < OpenStruct
+require_relative 'exercise_testcases'
+require_relative 'exercise_testcase'
 
-  def name
-    format('test_%s', description)
+class IsogramCases < ExerciseTestCases
+end
+
+class IsogramCase < ExerciseTestCase
+  def workload
+    [
+      "string = '#{canonical_data.input}'",
+      "#{assertion} Isogram.isogram?(string), '#{failure_message}'"
+    ]
   end
 
-  def description
-    input.downcase.gsub(/[ -]/,'_')
+  def failure_message
+    "#{canonical_data.input.inspect} #{is_or_isnt} an isogram"
+  end
+
+  def is_or_isnt
+    canonical_data.expected ? 'is' : 'is NOT'
   end
 
   def assertion
-    expected ? 'assert' : 'refute'
-  end
-
-  def skip
-    index.zero? ? '# skip' : 'skip'
-  end
-end
-
-IsogramCases = proc do |data|
-  JSON.parse(data)['cases'].map.with_index do |row, i|
-    IsogramCase.new(row.merge('index' => i))
+    canonical_data.expected ? 'assert' : 'refute'
   end
 end

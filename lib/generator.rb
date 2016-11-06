@@ -4,6 +4,9 @@ require 'erb'
 require 'json'
 require 'ostruct'
 
+require_relative 'exercise_testcases'
+require_relative 'exercise_testcase'
+
 class Generator
   METADATA_REPOSITORY = 'x-common'.freeze
 
@@ -14,7 +17,6 @@ class Generator
   end
 
   def metadata_dir
-    # rubocop:disable Metrics/LineLength
     File.expand_path(File.join('..', '..', '..', METADATA_REPOSITORY, 'exercises', name), __FILE__)
   end
 
@@ -35,7 +37,22 @@ class Generator
   end
 
   def test_cases
-    cases.call(data)
+    cases.new(data).to_a
+  end
+
+  class BookKeeping < ExerciseTestCase
+    def comment
+      IO.read(XRUBY_LIB + '/bookkeeping.md')
+    end
+
+    def workload
+      'assert_equal 2, BookKeeping::VERSION'
+    end
+  end
+
+  def test_version_bookkeeping
+    BookKeeping.new('description' => 'bookkeeping')
+    #    [comment, "\n", bla.full_method].join
   end
 
   def metadata_repository_missing_message
@@ -51,20 +68,21 @@ class Generator
   def generate
     check_metadata_repository_exists
     generate_test_file
-    increment_version
-    increment_version_in_example
+    # increment_version
+    # increment_version_in_example
   end
 
   def check_metadata_repository_exists
     unless File.directory?(metadata_dir)
       STDERR.puts metadata_repository_missing_message
-      fail Errno::ENOENT.new(metadata_dir)
+      raise Errno::ENOENT, metadata_dir
     end
   end
 
   def generate_test_file
     File.open(path_to("#{name.gsub(/[ -]/, '_')}_test.rb"), 'w') do |f|
-      f.write ERB.new(File.read(path_to('example.tt'))).result binding
+      template = File.read(path_to('example.tt'))
+      f.write ERB.new(template, nil, '<>').result binding
     end
   end
 
