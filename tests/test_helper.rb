@@ -1,6 +1,10 @@
 require 'simplecov'
 SimpleCov.start do
   add_filter "/tests/"
+  add_group "Utilities" do |file|
+    !(file.filename =~ /_cases\.rb$/)
+  end
+  add_group "Cases", "_cases.rb"
 end
 
 require 'minitest/autorun'
