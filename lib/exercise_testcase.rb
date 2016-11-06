@@ -7,11 +7,15 @@ class ExerciseTestCase
 
   def render(index = -1)
     @index = index
-    full_method
+    [comment, *full_method].compact.join("\n") + "\n"
   end
 
   def full_method
-    [comment,indent([method_definition],2), method_body.split("\n"), indent([method_end],2)].flatten.compact.join("\n") + "\n"
+    indent( [
+      method_definition,
+      *method_body,
+      method_end
+    ], 2)
   end
 
   def comment
@@ -26,10 +30,13 @@ class ExerciseTestCase
     "def #{test_name}"
   end
 
-  def method_end
-    'end'
+  def method_body
+    indent( [skip, *workload], 2)
   end
 
+  def method_end
+    "end"
+  end
 
   def skip
     @index.zero? ? '# skip' : 'skip'
@@ -43,15 +50,11 @@ class ExerciseTestCase
     description.downcase.tr_s(' -','_')
   end
 
-  def method_body
-    body = [skip, workload].flatten
-    [indent(body,4),nil].join("\n")
-  end
-
   def workload
+    "assert #{@canonical_data.expected.inspect}, Subject.method #{@canonical_data.input.inspect}"
   end
 
-  def indent(array, count)
-    array.map { |line| line ? ' ' * count + line : nil }
+  def indent(lines, count)
+    lines.compact.map { |line| ' ' * count + line }
   end
 end

@@ -9,7 +9,7 @@ class ExerciseTestCaseTest < Minitest::Test
 
   def test_render
     subject = ExerciseTestCase.new nil
-    expected = "  def test_\n    skip\n  end\n"
+    expected = "  def test_\n    skip\n    assert nil, Subject.method nil\n  end\n"
     assert_equal expected, subject.render
   end
 
