@@ -1,5 +1,6 @@
 class ExerciseTestCases
   attr_reader :cases_key
+
   def initialize(json_data)
     @data = json_data
     @cases_key = 'cases'
@@ -15,6 +16,6 @@ class ExerciseTestCases
   end
 
   def to_a
-    parsed_json_cases.map { |test_case| case_classname.new(test_case) }
+    parsed_json_cases.map.with_index { |test_case, index| case_classname.new(test_case, index) }
   end
 end

@@ -1,14 +1,18 @@
 #!/usr/bin/env ruby
-# encoding: utf-8
 gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
-require_relative 'isogram'
+require_relative '<%= name %>'
 
-# Common test data version: <%= sha1 %>
-class IsogramTest < Minitest::Test
-<% test_cases.each_with_index do |test_case,index| %>
-<%=  test_case.render(index) %>
+# Test data version: <%= sha1 %>
+class <%= "#{name.capitalize}Test" %> < Minitest::Test
+<% test_cases.each_with_index do |test_case, index| %>
 
+<%= test_case.comment %>
+  def <%= test_case.test_name %>
+    <%= test_case.skip %>
+    <%= test_case.render %>
+  end
 <% end %>
-<%= test_version_bookkeeping.render %>
 end
+
+<%= render_partial %>
