@@ -9,7 +9,7 @@ class <%= "#{name.capitalize}Test" %> < Minitest::Test
 
 <%= test_case.comment %>
   def <%= test_case.test_name %>
-    <%= test_case.skip %>
+    <%= test_case.skip(index) %>
     <%= test_case.render %>
   end
 <% end %>

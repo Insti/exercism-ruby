@@ -16,6 +16,6 @@ class ExerciseTestCases
   end
 
   def to_a
-    parsed_json_cases.map.with_index { |test_case, index| case_classname.new(test_case, index) }
+    parsed_json_cases.map { |test_case| case_classname.new(test_case) }
   end
 end

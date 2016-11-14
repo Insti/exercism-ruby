@@ -1,8 +1,7 @@
 class ExerciseTestCase
-  attr_reader :canonical_data, :index
+  attr_reader :canonical_data
 
-  def initialize(canonical_data, index = -1)
-    @index = index
+  def initialize(canonical_data)
     @canonical_data = OpenStruct.new(canonical_data)
   end
 
@@ -18,7 +17,7 @@ class ExerciseTestCase
 
   def comment; end
 
-  def skip
+  def skip(index = -1)
     index.zero? ? '# skip' : 'skip'
   end
 
