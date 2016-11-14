@@ -4,9 +4,10 @@ gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
 require_relative 'isogram'
 
-# Common test data version: 2adfe21
+# Test data version: 82eb00d
 class IsogramTest < Minitest::Test
-  def test_empty_string_has_no_duplicates
+
+  def test_empty_string
     # skip
     string = ''
     assert Isogram.isogram?(string), '"" is an isogram'
@@ -14,8 +15,8 @@ class IsogramTest < Minitest::Test
 
   def test_isogram_with_only_lower_case_characters
     skip
-    string = 'duplicates'
-    assert Isogram.isogram?(string), '"duplicates" is an isogram'
+    string = 'isogram'
+    assert Isogram.isogram?(string), '"isogram" is an isogram'
   end
 
   def test_word_with_one_duplicated_character
@@ -70,9 +71,10 @@ class IsogramTest < Minitest::Test
   #
   # If you are curious, read more about constants on RubyDoc:
   # http://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/constants.html
-
   def test_bookkeeping
     skip
     assert_equal 2, BookKeeping::VERSION
   end
 end
+
+<b>Hello I am a partial</b>

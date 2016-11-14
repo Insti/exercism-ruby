@@ -4,13 +4,14 @@ require 'erb'
 require 'json'
 require 'ostruct'
 
-require_relative 'exercise_testcases'
-require_relative 'exercise_testcase'
+require_relative 'exercise_test_cases'
+require_relative 'exercise_test_case'
 
 class Generator
   METADATA_REPOSITORY = 'x-common'.freeze
 
   attr_reader :name, :cases
+
   def initialize(name, cases)
     @name = name
     @cases = cases
@@ -37,7 +38,7 @@ class Generator
   end
 
   def test_cases
-    cases.new(data).to_a
+    cases.new(data).to_a << test_version_bookkeeping
   end
 
   class BookKeeping < ExerciseTestCase
@@ -52,7 +53,6 @@ class Generator
 
   def test_version_bookkeeping
     BookKeeping.new('description' => 'bookkeeping')
-    #    [comment, "\n", bla.full_method].join
   end
 
   def metadata_repository_missing_message
@@ -97,5 +97,11 @@ class Generator
     File.open(path_to('example.rb'), 'w') do |f|
       f.write contents.gsub("VERSION = #{version}", "VERSION = #{version + 1}")
     end
+  end
+
+  def render_partial
+    return unless File.file?(path_to('partial.tt'))
+    partial = File.read(path_to('partial.tt'))
+    ERB.new(partial).result binding
   end
 end

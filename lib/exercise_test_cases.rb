@@ -1,5 +1,6 @@
 class ExerciseTestCases
   attr_reader :cases_key
+
   def initialize(json_data)
     @data = json_data
     @cases_key = 'cases'
