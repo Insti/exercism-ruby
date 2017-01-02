@@ -16,5 +16,8 @@ unless ENV['CI']
   end
 end
 
+# The generator files need to be loaded first.
+require 'generator'
+
 # So we can be sure we have coverage on the whole lib directory:
 Dir.glob('lib/**/*.rb').each { |file| require file.gsub(%r{(^lib\/|\.rb$)}, '') }
