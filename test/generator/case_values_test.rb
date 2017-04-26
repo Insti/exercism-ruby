@@ -13,7 +13,7 @@ module Generator
         canonical_data = File.read('test/fixtures/metadata/exercises/complex/canonical-data.json')
         cases = AutoExtractor.new(
           case_class: ComplexCase,
-        ).extract(canonical_data)
+        ).call(canonical_data)
 
         expected = [
           ComplexCase.new(description: 'first generic verse', property: 'verse', number: 99,
@@ -35,7 +35,7 @@ module Generator
 
         cases = ProcExtractor.new(
           code_proc: mock_parser,
-        ).extract(canonical_data)
+        ).call(canonical_data)
         mock_parser.verify
       end
     end
