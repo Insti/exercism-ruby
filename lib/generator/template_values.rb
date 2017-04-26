@@ -38,9 +38,7 @@ module Generator
       else
         CaseValues::AutoExtractor.new(
           case_class: Object.const_get(Files::GeneratorCases.class_name(exercise_name)),
-          exercise_name: exercise_name,
-          exercise_data: canonical_data.to_s
-
+          exercise_name: exercise_name
         )
       end
     end

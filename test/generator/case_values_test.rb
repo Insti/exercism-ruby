@@ -14,8 +14,6 @@ module Generator
         cases = AutoExtractor.new(
           case_class: ComplexCase,
           exercise_name: 'complex',
-          exercise_data: canonical_data
-
         ).extract(canonical_data)
 
         expected = [
