@@ -26,18 +26,21 @@ module Generator
     private
 
     def extract
-      extractor.extract(
-        exercise_name: exercise_name,
-        exercise_data: canonical_data.to_s
-      )
+      load cases_load_name
+      extractor.extract
     end
 
     def extractor
-      load cases_load_name
       if Files::GeneratorCases.proc?(exercise_name)
-        CaseValues::ProcExtractor
+        CaseValues::ProcExtractor.new(
+          exercise_name: exercise_name,
+          exercise_data: canonical_data.to_s
+        )
       else
-        CaseValues::AutoExtractor
+        CaseValues::AutoExtractor.new(
+          exercise_name: exercise_name,
+          exercise_data: canonical_data.to_s
+        )
       end
     end
 

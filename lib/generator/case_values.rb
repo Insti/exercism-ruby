@@ -1,27 +1,13 @@
 module Generator
   module CaseValues
 
-    class Extractor
+    class AutoExtractor
       attr_reader :exercise_name, :exercise_data
-
-      def self.extract(exercise_name:, exercise_data:)
-        self.new(
-          exercise_name: exercise_name,
-          exercise_data: exercise_data
-        ).extract
-      end
 
       def initialize(exercise_name:, exercise_data:)
         @exercise_name = exercise_name
         @exercise_data = exercise_data
       end
-
-      def extract
-        fail NotImplementedError, 'Should return an array of ProblemNameCase'
-      end
-    end
-
-    class AutoExtractor < Extractor
 
       def extract
         extract_test_cases.map.with_index do |test, index|
@@ -42,7 +28,9 @@ module Generator
       end
     end
 
-    class ProcExtractor < Extractor
+    class ProcExtractor
+
+      attr_reader :exercise_name, :exercise_data
 
       def initialize(exercise_name:, exercise_data:, code_proc: nil)
         @exercise_name = exercise_name

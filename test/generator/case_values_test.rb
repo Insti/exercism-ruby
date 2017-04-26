@@ -8,14 +8,6 @@ end
 
 module Generator
   module CaseValues
-    class ExtractorTest < Minitest::Test
-      def test_not_implemented_error
-        assert_raises NotImplementedError do
-          Extractor.extract(exercise_name: nil, exercise_data: nil)
-        end
-      end
-    end
-
     class AutoExtractorTest < Minitest::Test
       def test_multi_level_auto_extraction
         cases = AutoExtractor.new(
@@ -43,7 +35,7 @@ module Generator
 
         cases = ProcExtractor.new(
           code_proc: mock_parser,
-          exercise_name: nil,
+          exercise_name: :unused,
           exercise_data: canonical_data
         ).extract
         mock_parser.verify
