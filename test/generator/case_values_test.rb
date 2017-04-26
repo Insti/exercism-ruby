@@ -10,10 +10,11 @@ module Generator
   module CaseValues
     class AutoExtractorTest < Minitest::Test
       def test_multi_level_auto_extraction
+        canonical_data = File.read('test/fixtures/metadata/exercises/complex/canonical-data.json')
         cases = AutoExtractor.new(
           exercise_name: 'complex',
-          exercise_data: File.read('test/fixtures/metadata/exercises/complex/canonical-data.json')
-        ).extract
+          exercise_data: canonical_data
+        ).extract(canonical_data)
 
         expected = [
           ComplexCase.new(description: 'first generic verse', property: 'verse', number: 99,
@@ -36,7 +37,7 @@ module Generator
         cases = ProcExtractor.new(
           code_proc: mock_parser,
           exercise_data: canonical_data
-        ).extract
+        ).extract(canonical_data)
         mock_parser.verify
       end
     end

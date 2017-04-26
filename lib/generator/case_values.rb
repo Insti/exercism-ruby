@@ -9,7 +9,7 @@ module Generator
         @exercise_data = exercise_data
       end
 
-      def extract
+      def extract(_)
         extract_test_cases.map.with_index do |test, index|
           test_case_class.new(test.merge('index' => index))
         end
@@ -37,7 +37,7 @@ module Generator
         @code_proc = code_proc
       end
 
-      def extract
+      def extract(_)
         @code_proc.call(exercise_data)
       end
 
