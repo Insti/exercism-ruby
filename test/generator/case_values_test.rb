@@ -30,13 +30,12 @@ module Generator
 
     class ProcExtractorTest < Minitest::Test
       def test_extract_via_proc
-        canonical_data = 'unimportant'.chars.shuffle.join
+        canonical_data = 'unimportant %d' % rand(10)
         mock_parser = Minitest::Mock.new
         mock_parser.expect(:call, [], [canonical_data] )
 
         cases = ProcExtractor.new(
           code_proc: mock_parser,
-          exercise_data: canonical_data
         ).extract(canonical_data)
         mock_parser.verify
       end

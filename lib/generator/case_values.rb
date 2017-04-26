@@ -29,19 +29,13 @@ module Generator
     end
 
     class ProcExtractor
-
-      attr_reader :exercise_data
-
-      def initialize(exercise_data:, code_proc:)
-        @exercise_data = exercise_data
+      def initialize(code_proc:)
         @code_proc = code_proc
       end
 
-      def extract(_)
+      def extract(exercise_data)
         @code_proc.call(exercise_data)
       end
-
     end
-
   end
 end
