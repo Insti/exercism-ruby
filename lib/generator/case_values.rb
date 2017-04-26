@@ -44,8 +44,19 @@ module Generator
 
     class ProcExtractor < Extractor
 
+      def initialize(exercise_name:, exercise_data:, code_proc: nil)
+        @exercise_name = exercise_name
+        @exercise_data = exercise_data
+        @code_proc = code_proc
+      end
+
+
       def extract
-        test_cases_proc.call(exercise_data)
+        if @code_proc
+          @code_proc.call(exercise_data)
+        else
+          test_cases_proc.call(exercise_data)
+        end
       end
 
       private

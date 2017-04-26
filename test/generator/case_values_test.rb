@@ -36,22 +36,17 @@ module Generator
     end
 
     class ProcExtractorTest < Minitest::Test
-      def setup
-        load 'test/fixtures/xruby/lib/alpha_cases.rb'
-      end
-
       def test_extract_via_proc
-        cases = ProcExtractor.new(
-          exercise_name: 'alpha',
-          exercise_data: File.read('test/fixtures/metadata/exercises/alpha/canonical-data.json')
-        ).extract
-        expected = [AlphaCase.new(description: 'add 2 numbers', input: [1, 1], expected: 2, index: 0)]
-        assert_equal expected, cases
-      end
+        canonical_data = 'unimportant'.chars.shuffle.join
+        mock_parser = Minitest::Mock.new
+        mock_parser.expect(:call, [], [canonical_data] )
 
-      def teardown
-        Object.send(:remove_const, :AlphaCases)
-        Object.send(:remove_const, :AlphaCase)
+        cases = ProcExtractor.new(
+          code_proc: mock_parser,
+          exercise_name: nil,
+          exercise_data: canonical_data
+        ).extract
+        mock_parser.verify
       end
     end
   end
