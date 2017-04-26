@@ -35,7 +35,6 @@ module Generator
 
         cases = ProcExtractor.new(
           code_proc: mock_parser,
-          exercise_name: :unused,
           exercise_data: canonical_data
         ).extract
         mock_parser.verify

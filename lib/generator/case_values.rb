@@ -30,27 +30,15 @@ module Generator
 
     class ProcExtractor
 
-      attr_reader :exercise_name, :exercise_data
+      attr_reader :exercise_data
 
-      def initialize(exercise_name:, exercise_data:, code_proc: nil)
-        @exercise_name = exercise_name
+      def initialize(exercise_data:, code_proc:)
         @exercise_data = exercise_data
         @code_proc = code_proc
       end
 
-
       def extract
-        if @code_proc
-          @code_proc.call(exercise_data)
-        else
-          test_cases_proc.call(exercise_data)
-        end
-      end
-
-      private
-
-      def test_cases_proc
-        Object.const_get(Files::GeneratorCases.proc_name(exercise_name))
+        @code_proc.call(exercise_data)
       end
 
     end

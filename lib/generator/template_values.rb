@@ -33,7 +33,7 @@ module Generator
     def extractor
       if Files::GeneratorCases.proc?(exercise_name)
         CaseValues::ProcExtractor.new(
-          exercise_name: exercise_name,
+          code_proc: Object.const_get(Files::GeneratorCases.proc_name(exercise_name)),
           exercise_data: canonical_data.to_s
         )
       else
