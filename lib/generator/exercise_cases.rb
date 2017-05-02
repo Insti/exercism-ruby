@@ -32,6 +32,14 @@ class ExerciseCase < OpenStruct
     end
   end
 
+  def indented_heredoc(lines, delimiter, depth, delimiter_method = nil)
+    [
+      "<<-#{delimiter}#{delimiter_method}",
+      lines.map { |line| ' ' * depth + line }.join("\n"),
+      delimiter
+    ].join("\n")
+  end
+
   # used in workload, for example, as
   #   "#{assert} Luhn.valid?(#{input.inspect})"
   def assert
