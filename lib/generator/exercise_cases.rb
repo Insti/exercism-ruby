@@ -12,8 +12,6 @@ class ExerciseCase < OpenStruct
     index.zero? ? '# skip' : 'skip'
   end
 
-  protected
-
   # used to indent multi line workloads, as
   #   indent_lines(
   #     [
@@ -23,6 +21,23 @@ class ExerciseCase < OpenStruct
   #   )
   def indent_lines(code, depth, separator = "\n")
     code.join(separator + ' ' * depth)
+  end
+
+  # use to indent multi line workloads with blank
+  # lines
+  #   indent_text(4, lines.join("\n"))
+  def indent_text(depth, text)
+    text.lines.reduce do |obj, line|
+      obj << (line == "\n" ? line : ' ' * depth + line)
+    end
+  end
+
+  def indented_heredoc(lines, delimiter, depth, delimiter_method = nil)
+    [
+      "<<-#{delimiter}#{delimiter_method}",
+      lines.map { |line| ' ' * depth + line }.join("\n"),
+      delimiter
+    ].join("\n")
   end
 
   # used in workload, for example, as
