@@ -3,17 +3,13 @@ require 'generator/exercise_case'
 class AnagramCase < Generator::ExerciseCase
 
   def workload
-    indent_lines([show_comment, detector, anagram, wanted, assert].compact)
+    indent_lines([detector, anagram, wanted, assert].compact)
   end
 
   private
 
   def indent_lines(code, indent = 2)
     code.join("\n" + ' '*2*indent)
-  end
-
-  def show_comment
-    "# #{comment}" unless comment.nil?
   end
 
   def detector
