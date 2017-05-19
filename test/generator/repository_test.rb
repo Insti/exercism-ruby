@@ -12,6 +12,7 @@ module Generator
       expected = ['alpha', 'alpha-beta', 'beta']
       assert_equal expected, subject.track_problems
     end
+
   end
 
   class ExerciseRepositoryTest < Minitest::Test

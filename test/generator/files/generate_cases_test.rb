@@ -28,6 +28,18 @@ module Generator
         expected_filename = track_path + '/exercises/slug/.meta/generator/slug_case.rb'
         assert_equal expected_filename, GeneratorCases.source_filepath(track_path, slug)
       end
+
+      FixturePaths = Paths.new(
+        metadata: 'test/fixtures/metadata',
+        track: 'test/fixtures/xruby'
+      )
+
+      def test_alternate_method
+        paths = FixturePaths
+        subject = Repository.new(paths: paths)
+        expected = ['alpha','beta'] # GeneratorCases.available(paths.track)
+        assert_equal expected, subject.exercises_with_generator
+      end
     end
   end
 end

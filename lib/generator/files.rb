@@ -21,6 +21,10 @@ module Generator
         GitCommand.abbreviated_commit_hash(git_path, relative_filename)
       end
 
+      def exist?
+        File.exist?(filename)
+      end
+
       private
 
       def relative_filename

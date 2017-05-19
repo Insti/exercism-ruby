@@ -7,7 +7,23 @@ module Generator
 
     def track_problems
       Dir.glob(File.join(paths.track, 'exercises', '*')).map do |path|
-        Pathname.new(path).basename.to_s
+        File.basename(path)
+      end
+    end
+
+    def exercises_with_generator
+      exercise_repostories.select(&:has_generator?).map(&:slug)
+    end
+
+    def exercise_repostory(slug)
+      ExerciseRepository.new(paths: paths, slug: slug)
+    end
+
+    private
+
+    def exercise_repostories
+      track_problems.map do |slug|
+        exercise_repostory(slug)
       end
     end
   end
@@ -20,6 +36,10 @@ module Generator
     def initialize(paths:, slug:)
       @paths = paths
       @slug = slug
+    end
+
+    def has_generator?
+      test_case.exist?
     end
   end
 end
