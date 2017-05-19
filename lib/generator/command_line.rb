@@ -7,7 +7,7 @@ module Generator
     end
 
     def parse(args)
-      parser = GeneratorOptparser.new(args, paths)
+      parser = GeneratorOptparser.new(args, paths, available_generators: available_generators)
       @options = parser.options
       generators if parser.options_valid?
     end
@@ -25,7 +25,11 @@ module Generator
     end
 
     def implementations
-      @options[:all] ? super_repository.exercises_with_generator : [@options[:slug]]
+      @options[:all] ? available_generators : [@options[:slug]]
+    end
+
+    def available_generators
+      super_repository.exercises_with_generator
     end
 
     def generator(implementation)

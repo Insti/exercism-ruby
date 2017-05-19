@@ -15,7 +15,7 @@ module Generator
     end
 
     def test_invalid_metadata_repository_outputs_message_to_stderr
-      paths = Paths.new(metadata: 'test/fixtures/nonexistent', track: nil)
+      paths = Paths.new(metadata: 'test/fixtures/nonexistent', track: '')
       expected_stderr = <<-MESSAGE.gsub(/^ {6}/, '')
       'x-common' repository not found.
       Try running the command:
@@ -40,7 +40,7 @@ module Generator
       end
     end
 
-    def test_usage_help_includes_available_generators
+    def not_a_command_line_test_test_usage_help_includes_available_generators
       args = %w(-h)
       fake_generators = %w(some fake generator names also-hyphen-ated)
       Files::GeneratorCases.stub :available, fake_generators do
@@ -52,10 +52,8 @@ module Generator
 
     def test_validate_missing_generator
       args = %w(nonexistent)
-      Files::GeneratorCases.stub :available, [] do
-        assert_output(nil, /A generator does not currently exist fo/) do
-          refute CommandLine.new(FixturePaths).parse(args)
-        end
+      assert_output(nil, /A generator does not currently exist fo/) do
+        refute CommandLine.new(FixturePaths).parse(args)
       end
     end
 
@@ -76,7 +74,7 @@ module Generator
     # FIXME: fix this test to use mocks
     def test_all_option
       args = %w(--all)
-      fixture_generators = ['alpha', 'beta']
+      fixture_generators = %w(alpha beta)
       generators = CommandLine.new(FixturePaths).parse(args)
       assert_equal fixture_generators.size, generators.size
       assert_instance_of GenerateTests, generators.first
@@ -84,9 +82,7 @@ module Generator
 
     def test_verbose_option
       args = %w(-v beta)
-      Files::GeneratorCases.stub :available, %w(beta) do
-        assert_instance_of UpdateVersionAndGenerateTests, CommandLine.new(FixturePaths).parse(args).first
-      end
+      assert_instance_of UpdateVersionAndGenerateTests, CommandLine.new(FixturePaths).parse(args).first
     end
   end
 end

@@ -21,7 +21,7 @@ module Generator
       Files::GeneratorCases.stub :available, %w(beta) do
         assert_equal(
           default_options.merge(slug: 'beta'),
-          GeneratorOptparser.new(args, FixturePaths).options
+          GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
         )
       end
     end
@@ -31,7 +31,7 @@ module Generator
       Files::GeneratorCases.stub :available, %w(beta) do
         assert_equal(
           default_options.merge(slug: 'beta', freeze: true),
-          GeneratorOptparser.new(args, FixturePaths).options
+          GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
         )
       end
     end
@@ -40,7 +40,7 @@ module Generator
       args = %w(-a)
       assert_equal(
         default_options.merge(all: true),
-        GeneratorOptparser.new(args, FixturePaths).options
+        GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
       )
     end
 
@@ -48,7 +48,7 @@ module Generator
       args = %w(-h)
       assert_equal(
         default_options.merge(help: true),
-        GeneratorOptparser.new(args, FixturePaths).options
+        GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
       )
     end
 
@@ -57,7 +57,7 @@ module Generator
       Files::GeneratorCases.stub :available, %w(beta) do
         assert_equal(
           default_options.merge(slug: 'beta', verbose: true),
-          GeneratorOptparser.new(args, FixturePaths).options
+          GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
         )
       end
     end
@@ -65,14 +65,14 @@ module Generator
     def test_usage_help
       args = %w(-h)
       assert_output(/Usage:/, nil) do
-        refute GeneratorOptparser.new(args, FixturePaths).options_valid?
+        refute GeneratorOptparser.new(args, FixturePaths, available_generators: []).options_valid?
       end
     end
 
     def test_usage_help_with_exercise
       args = %w(-h beta)
       assert_output(/Usage:/, nil) do
-        refute GeneratorOptparser.new(args, FixturePaths).options_valid?
+        refute GeneratorOptparser.new(args, FixturePaths, available_generators: []).options_valid?
       end
     end
 
@@ -81,7 +81,7 @@ module Generator
       fake_generators = %w(some fake generator names also-hyphen-ated)
       Files::GeneratorCases.stub :available, fake_generators do
         assert_output(/#{fake_generators.sort.join(' ')}/, nil) do
-          refute GeneratorOptparser.new(args, FixturePaths).options_valid?
+          refute GeneratorOptparser.new(args, FixturePaths, available_generators: fake_generators).options_valid?
         end
       end
     end
@@ -94,19 +94,19 @@ module Generator
         git clone https://github.com/exercism/x-common.git "test/fixtures/nonexistent"
       MESSAGE
       assert_output nil, /#{expected_stderr}/ do
-        refute GeneratorOptparser.new([], paths).options_valid?
+        refute GeneratorOptparser.new([], paths, available_generators: []).options_valid?
       end
     end
 
     def test_validate_generate_all
       args = ['--all']
-      assert GeneratorOptparser.new(args, FixturePaths).options_valid?
+      assert GeneratorOptparser.new(args, FixturePaths, available_generators: []).options_valid?
     end
 
     def test_validate_slug
       expected_stderr = 'Exercise name required'
       assert_output(/Usage:/, /#{expected_stderr}/) do
-        refute GeneratorOptparser.new([], FixturePaths).options_valid?
+        refute GeneratorOptparser.new([], FixturePaths, available_generators: []).options_valid?
       end
     end
 
@@ -114,7 +114,7 @@ module Generator
       args = %w(non-existent)
       Files::GeneratorCases.stub :available, [] do
         assert_output(nil, /A generator does not currently exist for non-existent/) do
-          refute GeneratorOptparser.new(args, FixturePaths).options_valid?
+          refute GeneratorOptparser.new(args, FixturePaths, available_generators: []).options_valid?
         end
       end
     end
