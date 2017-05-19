@@ -43,10 +43,8 @@ module Generator
     def not_a_command_line_test_test_usage_help_includes_available_generators
       args = %w(-h)
       fake_generators = %w(some fake generator names also-hyphen-ated)
-      Files::GeneratorCases.stub :available, fake_generators do
         assert_output(/#{fake_generators.sort.join(' ')}/, nil) do
           refute CommandLine.new(FixturePaths).parse(args)
-        end
       end
     end
 
@@ -59,16 +57,12 @@ module Generator
 
     def test_default_options
       args = %w(beta)
-      Files::GeneratorCases.stub :available, %w(beta) do
-        assert_instance_of UpdateVersionAndGenerateTests, CommandLine.new(FixturePaths).parse(args).first
-      end
+      assert_instance_of UpdateVersionAndGenerateTests, CommandLine.new(FixturePaths).parse(args).first
     end
 
     def test_frozen_option
       args = %w(-f beta)
-      Files::GeneratorCases.stub :available, %w(beta) do
-        assert_instance_of GenerateTests, CommandLine.new(FixturePaths).parse(args).first
-      end
+      assert_instance_of GenerateTests, CommandLine.new(FixturePaths).parse(args).first
     end
 
     # FIXME: fix this test to use mocks

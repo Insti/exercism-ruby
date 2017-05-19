@@ -18,22 +18,18 @@ module Generator
 
     def test_default_options
       args = %w(beta)
-      Files::GeneratorCases.stub :available, %w(beta) do
-        assert_equal(
-          default_options.merge(slug: 'beta'),
-          GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
-        )
-      end
+      assert_equal(
+        default_options.merge(slug: 'beta'),
+        GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
+      )
     end
 
     def test_frozen_option
       args = %w(-f beta)
-      Files::GeneratorCases.stub :available, %w(beta) do
-        assert_equal(
-          default_options.merge(slug: 'beta', freeze: true),
-          GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
-        )
-      end
+      assert_equal(
+        default_options.merge(slug: 'beta', freeze: true),
+        GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
+      )
     end
 
     def test_all_option
@@ -54,12 +50,10 @@ module Generator
 
     def test_verbose_option
       args = %w(-v beta)
-      Files::GeneratorCases.stub :available, %w(beta) do
-        assert_equal(
-          default_options.merge(slug: 'beta', verbose: true),
-          GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
-        )
-      end
+      assert_equal(
+        default_options.merge(slug: 'beta', verbose: true),
+        GeneratorOptparser.new(args, FixturePaths, available_generators: []).options
+      )
     end
 
     def test_usage_help
@@ -79,10 +73,8 @@ module Generator
     def test_usage_help_includes_available_generators
       args = %w(-h)
       fake_generators = %w(some fake generator names also-hyphen-ated)
-      Files::GeneratorCases.stub :available, fake_generators do
-        assert_output(/#{fake_generators.sort.join(' ')}/, nil) do
-          refute GeneratorOptparser.new(args, FixturePaths, available_generators: fake_generators).options_valid?
-        end
+      assert_output(/#{fake_generators.sort.join(' ')}/, nil) do
+        refute GeneratorOptparser.new(args, FixturePaths, available_generators: fake_generators).options_valid?
       end
     end
 
@@ -112,10 +104,8 @@ module Generator
 
     def test_validate_missing_generator
       args = %w(non-existent)
-      Files::GeneratorCases.stub :available, [] do
-        assert_output(nil, /A generator does not currently exist for non-existent/) do
-          refute GeneratorOptparser.new(args, FixturePaths, available_generators: []).options_valid?
-        end
+      assert_output(nil, /A generator does not currently exist for non-existent/) do
+        refute GeneratorOptparser.new(args, FixturePaths, available_generators: []).options_valid?
       end
     end
 
