@@ -25,7 +25,7 @@ module Generator
     end
 
     def implementations
-      @options[:all] ? Files::GeneratorCases.available(paths.track) : [@options[:slug]]
+      @options[:all] ? super_repository.exercises_with_generator : [@options[:slug]]
     end
 
     def generator(implementation)

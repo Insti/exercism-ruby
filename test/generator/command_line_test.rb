@@ -73,14 +73,13 @@ module Generator
       end
     end
 
+    # FIXME: fix this test to use mocks
     def test_all_option
       args = %w(--all)
-      fake_generators = %w(some fake generator names also-hyphen-ated)
-      Files::GeneratorCases.stub :available, fake_generators do
-        generators = CommandLine.new(FixturePaths).parse(args)
-        assert_equal fake_generators.size, generators.size
-        assert_instance_of GenerateTests, generators.first
-      end
+      fixture_generators = ['alpha', 'beta']
+      generators = CommandLine.new(FixturePaths).parse(args)
+      assert_equal fixture_generators.size, generators.size
+      assert_instance_of GenerateTests, generators.first
     end
 
     def test_verbose_option
