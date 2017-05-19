@@ -38,7 +38,7 @@ module Generator
 
     def implementation(slug)
       exercise = Exercise.new(slug: slug)
-      repository = Repository.new(paths: paths, slug: slug)
+      repository = ExerciseRepository.new(paths: paths, slug: slug)
       LoggingImplementation.new(
         implementation: Implementation.new(repository: repository, exercise: exercise),
         logger: logger

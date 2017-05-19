@@ -1,5 +1,5 @@
 module Generator
-  class Repository
+  class ExerciseRepository
     include Files::TrackFiles
     include Files::MetadataFiles
 
