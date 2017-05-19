@@ -15,7 +15,7 @@ module Generator
       exercise_repostories.select(&:has_generator?).map(&:slug)
     end
 
-    def exercise_repostory(slug)
+    def for_exercise(slug)
       ExerciseRepository.new(paths: paths, slug: slug)
     end
 
@@ -23,7 +23,7 @@ module Generator
 
     def exercise_repostories
       track_problems.map do |slug|
-        exercise_repostory(slug)
+        for_exercise(slug)
       end
     end
   end
