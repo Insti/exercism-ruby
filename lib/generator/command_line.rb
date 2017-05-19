@@ -16,6 +16,10 @@ module Generator
 
     attr_reader :paths
 
+    def super_repository
+      Repository.new(paths: paths)
+    end
+
     def generators
       implementations.map { |slug| generator(implementation(slug)) }
     end
@@ -43,10 +47,6 @@ module Generator
         implementation: Implementation.new(repository: exercise_repository, exercise: exercise),
         logger: logger
       )
-    end
-
-    def super_repository
-      Repository.new(paths: paths)
     end
 
     def logger
