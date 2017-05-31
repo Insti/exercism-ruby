@@ -82,9 +82,11 @@ module Generator
     end
 
     def validate_cases
-      return true if available_generators.include?(options[:slug])
-      warning = "A generator does not currently exist for #{options[:slug]}!"
-      expected_location = "Expecting it to be at: #{Files::GeneratorCases.source_filepath(@paths.track, options[:slug])}"
+      slug = options[:slug]
+      return true if available_generators.include?(slug)
+      warning = "A generator does not currently exist for #{slug}}!"
+      exercise_repository = ExerciseRepository.new(paths: @paths, slug: slug)
+      expected_location = "Expecting it to be at: #{exercise_repository.expected_test_case_filename}"
       $stderr.puts [warning, expected_location].join("\n")
       false
     end

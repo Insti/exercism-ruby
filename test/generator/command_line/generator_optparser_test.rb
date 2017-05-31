@@ -121,10 +121,8 @@ module Generator
 
     def test_missing_generator_tells_you_where_it_looked
       args = %w(non-existent)
-      Files::GeneratorCases.stub :available, [] do
-        assert_output(nil, %r{exercises/non-existent/\.meta/generator/non_existent_case\.rb}) do
-          refute GeneratorOptparser.new(args, FixturePaths).options_valid?
-        end
+      assert_output(nil, %r{exercises/non-existent/\.meta/generator/non_existent_case\.rb}) do
+        refute GeneratorOptparser.new(args, FixturePaths, available_generators: []).options_valid?
       end
     end
   end
