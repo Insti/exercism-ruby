@@ -41,5 +41,9 @@ module Generator
     def has_generator?
       test_case.exist?
     end
+
+    def expected_test_case_filename
+      test_case.filename
+    end
   end
 end
