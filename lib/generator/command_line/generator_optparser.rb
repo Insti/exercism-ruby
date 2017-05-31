@@ -11,9 +11,10 @@ module Generator
 
     attr_reader :options
 
-    def initialize(args, paths)
+    def initialize(args, paths, available_generators:)
       @args = args
       @paths = paths
+      @available_generators = available_generators
       @options = parse_options
     end
 
@@ -23,6 +24,8 @@ module Generator
     end
 
     private
+
+    attr_reader :available_generators
 
     def parse_options
       @options = DEFAULT_OPTIONS.dup
@@ -46,10 +49,6 @@ module Generator
       option_parser.help <<
         "\nAvailable exercise generators:\n" <<
         available_generators.sort.join(' ')
-    end
-
-    def available_generators
-      Files::GeneratorCases.available(@paths.track)
     end
 
     def validate_paths
@@ -82,9 +81,11 @@ module Generator
     end
 
     def validate_cases
-      return true if available_generators.include?(options[:slug])
-      warning = "A generator does not currently exist for #{options[:slug]}!"
-      expected_location = "Expecting it to be at: #{Files::GeneratorCases.source_filepath(@paths.track, options[:slug])}"
+      slug = options[:slug]
+      return true if available_generators.include?(slug)
+      warning = "A generator does not currently exist for #{slug}}!"
+      exercise_repository = ExerciseRepository.new(paths: @paths, slug: slug)
+      expected_location = "Expecting it to be at: #{exercise_repository.expected_test_case_filename}"
       $stderr.puts [warning, expected_location].join("\n")
       false
     end
