@@ -8,7 +8,8 @@
     {
       "slug": "hello-world",
       "uuid": "4fe19484-4414-471b-a106-73c776c61388",
-      "core": false,
+      "core": true,
+      "auto_approve": true,
       "unlocked_by": null,
       "difficulty": 1,
       "topics": [
@@ -123,7 +124,7 @@
       "slug": "leap",
       "uuid": "06eaa2dd-dc80-4d38-b10d-11174183b0b6",
       "core": false,
-      "unlocked_by": null,
+      "unlocked_by": "two-fer",
       "difficulty": 1,
       "topics": [
         "control_flow_conditionals",
@@ -447,7 +448,7 @@
       "slug": "triangle",
       "uuid": "5c797eb2-155d-47ca-8f85-2ba5803f9713",
       "core": false,
-      "unlocked_by": null,
+      "unlocked_by": "two-fer",
       "difficulty": 1,
       "topics": null
     },
@@ -479,7 +480,7 @@
       "slug": "proverb",
       "uuid": "3c5193ab-6471-4be2-9d24-1d2b51ad822a",
       "core": false,
-      "unlocked_by": null,
+      "unlocked_by": "two-fer",
       "difficulty": 1,
       "topics": null
     },
@@ -775,7 +776,7 @@
     {
       "slug": "two-fer",
       "uuid": "1304b188-6d08-4361-be40-c6b1b88e5e54",
-      "core": false,
+      "core": true,
       "unlocked_by": null,
       "difficulty": 1,
       "topics": [
